@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const db = require("../data/helpers/dbHelpers");
 const router = express.Router();
 
-router.post("/api/register", (req, res) => {
+router.post("/api/register",  (req, res) => {
   const user = req.body;
   const hash = bcrypt.hashSync(user.password, 16);
 

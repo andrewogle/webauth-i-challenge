@@ -9,12 +9,12 @@ module.exports = {
       .where({ id })
       .first();
   },
-  finduser: filter => {
+  findUser: filter => {
     return db("users").where(filter);
   },
 
-  add: user => {
-    const [id] = db("users").insert(user);
+  add: async user => {
+    const [id] = await db("users").insert(user);
 
     return findByID(id);
   }
