@@ -1,12 +1,17 @@
 const express = require("express");
-const router = require("./router/userRouter");
+const userRouter = require("./router/userRouter");
 const helmet = require("helmet");
 const cors = require("cors");
+const server = express();
 
 server.use(express.json());
 
 server.use(cors());
 server.use(helmet());
-server.use("/",router);
+server.use("/",userRouter);
 
-module.exports.server;
+server.get("/", async (req, res) => {
+    res.send("Hello");
+  });
+
+module.exports = server;
