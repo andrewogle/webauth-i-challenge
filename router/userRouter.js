@@ -25,6 +25,7 @@ router.post("/api/login", (req, res) => {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
+        req.session.user = user
         res.status(200).json({ message: ` Welcome ${user.userName}` });
       } else {
         res.status(401).json({ message: "You shall not pass" });
@@ -64,6 +65,21 @@ router.get("/api/users", restricted, (req, res) => {
     .catch(error => {
       res.status(500).json(error);
     });
+});
+
+router.get("/logout", (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err){
+        res.send('you can never leave!')
+      }
+      else{
+        res.send('bye bye');
+      }
+    });
+  } else {
+    res.end();
+  }
 });
 
 module.exports = router;
